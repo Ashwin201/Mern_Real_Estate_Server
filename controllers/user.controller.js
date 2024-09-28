@@ -93,12 +93,21 @@ export const login = async (req, res) => {
       httpOnly: true,
       sameSite: "strict",
     });
-    return res.status(201).json({
-      message: "Logged in successfully.",
-      user,
-      token,
-      success: true,
-    });
+    return res
+      .status(201)
+      .cookie("authToken", token, {
+        maxAge: 1 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        domain: process.env.NODE_ENV,
+      })
+      .json({
+        message: "Logged in successfully.",
+        user,
+        token,
+        success: true,
+      });
   } catch (error) {
     console.log("Failed to log in.");
     return res.status(500).json({
