@@ -100,7 +100,7 @@ export const login = async (req, res) => {
         httpOnly: true,
         sameSite: "strict",
         secure: process.env.NODE_ENV === "production",
-        domain: process.env.NODE_ENV,
+        domain: process.env.DOMAIN,
       })
       .json({
         message: "Logged in successfully.",
