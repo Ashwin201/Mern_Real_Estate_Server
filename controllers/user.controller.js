@@ -59,7 +59,7 @@ export const login = async (req, res) => {
     let user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
-        message: "User with this email id doesn't exists.",
+        message: "Invalid email.",
         success: false,
       });
     }
