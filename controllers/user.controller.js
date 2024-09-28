@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import User from "../modals/user.model.js";
 import jwt from "jsonwebtoken";
 import Post from "../modals/post.model.js";
+import { setCookie } from "cookies-next";
 export const register = async (req, res) => {
   try {
     const { fullName, email, password, avatar } = req.body;
@@ -86,19 +87,18 @@ export const login = async (req, res) => {
       email: user?.email,
       avatar: user?.avatar,
     };
-    return res
-      .status(201)
-      .cookie("authToken", token, {
-        maxAge: 1 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        sameSite: "strict",
-      })
-      .json({
-        message: "Logged in successfully.",
-        user,
-        token,
-        success: true,
-      });
+
+    setCookie("authToken", token, {
+      maxAge: 1 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      sameSite: "strict",
+    });
+    return res.status(201).json({
+      message: "Logged in successfully.",
+      user,
+      token,
+      success: true,
+    });
   } catch (error) {
     console.log("Failed to log in.");
     return res.status(500).json({
