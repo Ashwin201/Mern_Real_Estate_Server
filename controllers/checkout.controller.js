@@ -26,7 +26,7 @@ export const Checkout = async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `https://homiorentals.onrender.com/cart`,
+      success_url: `https://homiorentals.onrender.com/checkout/success?payment_status=success&message=Thank_you_for_using_homiorentals`,
       cancel_url: `https://homiorentals.onrender.com/cart`,
     });
 
