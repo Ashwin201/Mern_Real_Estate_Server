@@ -32,7 +32,15 @@ export const addToWishlist = async (req, res) => {
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
-    if (!wishlist.items.includes(postId)) {
+    const itemIndex = wishlist.items.findIndex((item) =>
+      item.post.equals(postId)
+    );
+    if (itemIndex > -1) {
+      // cart.items[itemIndex].quantity += 1;
+      return res
+        .status(400)
+        .json({ message: "Post already added to wishlist" });
+    } else {
       wishlist.items.push({ post: postId });
     }
     await wishlist.save();
