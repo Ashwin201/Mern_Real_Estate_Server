@@ -9,7 +9,6 @@ import UserRoutes from "./routes/user.route.js";
 import CartRoutes from "./routes/cart.route.js";
 import WishlistRoutes from "./routes/wishlist.route.js";
 import PostRoutes from "./routes/post.route.js";
-import CheckoutRoutes from "./routes/checkout.route.js";
 
 dotenv.config();
 
@@ -34,7 +33,6 @@ app.use("/api/user", UserRoutes);
 app.use("/api/cart", CartRoutes);
 app.use("/api/wishlist", WishlistRoutes);
 app.use("/api/post", PostRoutes);
-app.use("/api/checkout", CheckoutRoutes);
 app.get("/", (req, res) => {
   res.send({
     activeStatus: true,

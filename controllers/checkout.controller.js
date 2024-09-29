@@ -7,6 +7,7 @@ const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`);
 export const Checkout = async (req, res) => {
   try {
     const { cart } = req.body;
+    // console.log(cart);
     const lineItems = cart?.map((item) => {
       return {
         price_data: {
@@ -25,8 +26,8 @@ export const Checkout = async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${process.env.FRONREND_URL}/cart`,
-      cancel_url: `${process.env.FRONREND_URL}/cart`,
+      success_url: `https://homiorentals.onrender.com/cart`,
+      cancel_url: `https://homiorentals.onrender.com/cart`,
     });
 
     res.json({ id: session.id });
